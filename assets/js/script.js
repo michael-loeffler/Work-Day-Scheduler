@@ -4,22 +4,16 @@
 $(function () {
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
-  // local storage. HINT: What does `this` reference in the click listener
-  // function? How can DOM traversal be used to get the "hour-x" id of the
-  // time-block containing the button that was clicked? How might the id be
-  // useful when saving the description in local storage?
-
-  //
+  // local storage. 
   // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
+  // block by comparing the id to the current hour. 
   var containerEl = $('.container-lg');
   var timeBlockEl = $('.time-block');
   var id = 9;
-  var time = dayjs().hour();
+  var time = 9;
+  // dayjs().hour();
 
+//-- PROCESS FOR FIRST TIME BLOCK --//
   if (id < time) {
     timeBlockEl.addClass('past');
   } else if (id === time) {
@@ -27,7 +21,8 @@ $(function () {
   } else if (id > time) {
     timeBlockEl.addClass('future');
   };
- 
+  timeBlockEl.children('textarea').text(localStorage.getItem(id));
+ //-- PROCESS FOR THE REST OF THE TIME BLOCKS --//
   for (var id = 10; id < 18; id++) {
     var cloneEl = timeBlockEl.clone();
     containerEl.append(cloneEl);
@@ -54,9 +49,8 @@ $(function () {
     };
 
   };
-
+//-- EVENT LISTENER FOR SAVE BUTTONS --//
   var saveBtnEl = $('button');
-
   saveBtnEl.on('click', function () {
     var timeBlockEl = $(this.parentNode);
     var timeBlockId = this.parentNode.getAttribute('id');
@@ -65,14 +59,7 @@ $(function () {
     localStorage.setItem(timeBlockId, userEventText);
   });
 
-
-  //
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
-
-  //
-  // TODO: Add code to display the current date in the header of the page.
+//-- DISPLAYS CURRENT DATE AT TOP OF PAGE --//
   var today = dayjs();
   $('#currentDay').text(today.format('dddd, MMMM D'));
 });
