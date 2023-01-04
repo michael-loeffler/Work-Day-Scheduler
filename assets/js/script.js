@@ -5,8 +5,7 @@ $(function () {
   var timeBlockEl = $('.time-block'); // jquery selector for the time block "template" that is written into the HTML file
 //-- VARIABLE INITIALIZATIONS --//
   var id = 9; 
-  var time = 10;
-  // dayjs().hour();
+  var time = dayjs().hour();
 
 //-- PROCESS FOR FIRST TIME BLOCK (9 AM) --//
   if (id < time) { 
